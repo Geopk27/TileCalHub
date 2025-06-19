@@ -2,27 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>TileCalHub</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/previewCanvas_v1.js" defer></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <nav class="bg-white shadow p-4">
-    <div class="container mx-auto flex justify-between items-center">
-      <div class="text-xl font-bold">TileCalHub</div>
-      <div class="space-x-4">
-        <a href="index.html" class="hover:underline">Home</a>
-        <a href="#calculator" class="hover:underline">Tile Calculator</a>
-        <a href="tile-tips/index.html" class="hover:underline">Tile Tips & Ideas</a>
-      </div>
-    </div>
-  </nav>
-
   <main class="container mx-auto py-6 px-4 space-y-6">
     <section id="calculator" class="bg-white p-6 rounded shadow space-y-4">
       <h1 class="text-2xl font-bold">Tile Calculator</h1>
 
-      <!-- Tile Shape -->
       <div>
         <label class="block text-sm font-medium">Tile Shape:</label>
         <select id="tileShape" class="w-full border p-2 rounded">
@@ -32,7 +21,6 @@
         </select>
       </div>
 
-      <!-- Unit -->
       <div>
         <label class="block text-sm font-medium">Select Unit:</label>
         <select id="unitSelect" class="w-full border p-2 rounded">
@@ -42,17 +30,16 @@
         </select>
       </div>
 
-      <!-- Inputs -->
       <div class="grid grid-cols-2 gap-4">
         <div><label>Area Length</label><input type="number" id="roomLength" class="w-full p-2 border rounded"></div>
         <div><label>Area Width</label><input type="number" id="roomWidth" class="w-full p-2 border rounded"></div>
         <div><label>Tile Length</label><input type="number" id="tileLength" class="w-full p-2 border rounded"></div>
         <div><label>Tile Width</label><input type="number" id="tileWidth" class="w-full p-2 border rounded"></div>
 
-        <!-- Pattern Dropdown -->
         <div>
-          <label class="block text-sm font-medium">Tile Laying Pattern:</label>
+          <label>Tile Pattern</label>
           <select id="patternSelect" class="w-full border p-2 rounded">
+            <option value="">Select pattern</option>
           </select>
         </div>
 
@@ -60,42 +47,17 @@
       </div>
 
       <button onclick="calculateTiles()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Calculate</button>
-      <div id="result" class="pt-4 space-y-2 text-lg"></div>
 
-      <button id="previewBtn" onclick="goToPreview()" class="bg-green-600 text-white px-4 py-2 rounded hidden">Preview Layout Plan</button>
+      <div id="result" class="pt-4 space-y-2 text-lg"></div>
 
       <p class="text-sm text-gray-500 italic">
         Disclaimer: TileCalHub shall not be held responsible for any deviations or issues on costings and calculations that arise from usage of these tools.
       </p>
-    </section>
 
-    <!-- 👇 Tile Pattern Image Gallery -->
-    <section class="bg-white p-6 rounded shadow space-y-4">
-      <h2 class="text-xl font-semibold">Square Tile Patterns</h2>
-      <img src="images/Square Tiles Laying Pattern.jpg" alt="Square Patterns" class="w-full rounded">
+      <button id="previewBtn" onclick="goToPreview()" class="bg-green-600 text-white px-4 py-2 rounded">Preview Layout Plan</button>
 
-      <h2 class="text-xl font-semibold mt-8">Rectangle Tile Patterns</h2>
-      <img src="images/Rectangle Tiles Laying Pattern.jpg" alt="Rectangle Patterns" class="w-full rounded">
-
-      <h2 class="text-xl font-semibold mt-8">Plank Tile Patterns</h2>
-      <img src="images/Plank Tiles Laying Pattern.jpg" alt="Plank Patterns" class="w-full rounded">
+      <div id="previewContainer" class="mt-6 border p-4 bg-white"></div>
     </section>
   </main>
-
-  <footer class="bg-white border-t p-4 text-center text-sm space-y-2">
-    <div class="space-x-3">
-      <span>📧 hello@tilecalhub.com</span>
-      <span>📷 IG</span>
-      <span>📘 FB</span>
-      <span>🎵 TikTok</span>
-      <span>🍋 Lemon8</span>
-      <span>🧧 Xiaohongshu</span>
-    </div>
-    <p>© 2025 TileCalHub. All rights reserved.</p>
-  </footer>
-
-  <script src="js/tilecalhub.js"></script>
-</body>
-</html>
 </body>
 </html>
