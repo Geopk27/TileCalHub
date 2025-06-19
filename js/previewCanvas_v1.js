@@ -65,16 +65,12 @@ function goToPreview() {
     }
   }
 
-  // Draw dimension labels
   ctx.fillStyle = "black";
   ctx.font = "12px Arial";
   ctx.fillText("Length: " + (roomLengthMM / 1000).toFixed(2) + " m", startX - 35, canvas.height / 2);
   ctx.fillText("Width: " + (roomWidthMM / 1000).toFixed(2) + " m", canvas.width / 2, startY - 10);
-
-  // Draw scale
   ctx.fillText("Scale 1:" + Math.round(1 / scale), 50, canvas.height - 20);
 
-  // Draw watermark
   ctx.font = "10px Arial";
   ctx.fillStyle = "#ccc";
   ctx.fillText("www.tilecalhub.com", canvas.width - 120, canvas.height - 10);
