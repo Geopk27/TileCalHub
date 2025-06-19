@@ -71,5 +71,27 @@ function calculateTiles() {
 }
 
 function goToPreview() {
-  alert("Preview layout functionality is coming soon.");
+  // 1. Get all input values
+  const length = document.getElementById('roomLength').value;
+  const width = document.getElementById('roomWidth').value;
+  const tileLength = document.getElementById('tileLength').value;
+  const tileWidth = document.getElementById('tileWidth').value;
+  const unit = document.getElementById('unitSelect').value;
+
+  // 2. Check if all required fields are filled
+  if (!length || !width || !tileLength || !tileWidth) {
+    alert("Please fill in all required fields");
+    return;
+  }
+
+  // 3. Prepare parameters to pass
+  const params = new URLSearchParams();
+  params.append('length', length);
+  params.append('width', width);
+  params.append('tileLength', tileLength);
+  params.append('tileWidth', tileWidth);
+  params.append('unit', unit);
+
+  // 4. Redirect to preview page with parameters
+  window.location.href = 'layout-preview.html?' + params.toString();
 }

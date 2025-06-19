@@ -1,16 +1,28 @@
 
-function goToPreview() {
-  const length = parseFloat(document.getElementById('roomLength').value);
-  const width = parseFloat(document.getElementById('roomWidth').value);
-  const tileLength = parseFloat(document.getElementById('tileLength').value);
-  const tileWidth = parseFloat(document.getElementById('tileWidth').value);
-  const unit = document.getElementById('unitSelect').value;
+// Automatically run when page loads
+window.onload = function() {
+  // 1. Get parameters from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  const length = parseFloat(urlParams.get('length'));
+  const width = parseFloat(urlParams.get('width'));
+  const tileLength = parseFloat(urlParams.get('tileLength'));
+  const tileWidth = parseFloat(urlParams.get('tileWidth'));
+  const unit = urlParams.get('unit');
 
-  if (!length || !width || !tileLength || !tileWidth) {
-    alert("Please fill in all required fields.");
+  // 2. Verify all required parameters exist
+  if (isNaN(length) || isNaN(width) || isNaN(tileLength) || isNaN(tileWidth)) {
+    alert("Missing required parameters, please go back and calculate first");
     return;
   }
 
+  // 3. Call the drawing function
+  drawPreview(length, width, tileLength, tileWidth, unit);
+};
+
+// Drawing function
+function drawPreview(length, width, tileLength, tileWidth, unit) {
+  // Unit conversion function
   const toMM = (value, unit) => {
     if (unit === "mm") return value;
     if (unit === "cm") return value * 10;
@@ -18,18 +30,23 @@ function goToPreview() {
     return value;
   };
 
+  // Convert all units to millimeters
   const roomLengthMM = toMM(length, unit);
   const roomWidthMM = toMM(width, unit);
   const tileLengthMM = toMM(tileLength, unit);
   const tileWidthMM = toMM(tileWidth, unit);
 
+  // Create canvas
   const canvas = document.createElement('canvas');
   canvas.width = 595;
   canvas.height = 842;
   const ctx = canvas.getContext('2d');
+  
+  // Draw white background
   ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+  // Calculate drawing area and scale
   const margin = 40;
   const drawableWidth = canvas.width - 2 * margin;
   const drawableHeight = canvas.height - 2 * margin;
@@ -41,6 +58,7 @@ function goToPreview() {
   const startX = (canvas.width - roomWidthMM * scale) / 2;
   const startY = (canvas.height - roomLengthMM * scale) / 2;
 
+  // Draw tiles
   let count = 1;
   const rows = Math.ceil(roomLengthMM / tileLengthMM);
   const cols = Math.ceil(roomWidthMM / tileWidthMM);
@@ -65,6 +83,7 @@ function goToPreview() {
     }
   }
 
+  // Add text information
   ctx.fillStyle = "black";
   ctx.font = "12px Arial";
   ctx.fillText("Length: " + (roomLengthMM / 1000).toFixed(2) + " m", startX - 35, canvas.height / 2);
@@ -75,7 +94,13 @@ function goToPreview() {
   ctx.fillStyle = "#ccc";
   ctx.fillText("www.tilecalhub.com", canvas.width - 120, canvas.height - 10);
 
+  // Add canvas to page
   const previewContainer = document.getElementById('previewContainer');
   previewContainer.innerHTML = '';
   previewContainer.appendChild(canvas);
+}
+
+// PDF download function (not implemented yet)
+function downloadPDF() {
+  alert("PDF download feature coming soon");
 }
