@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const resultDiv = document.getElementById('result');
   const previewBtn = document.getElementById('previewBtn');
 
+  function convertToMeters(value, unit) {
+    if (unit === 'mm') return value / 1000;
+    if (unit === 'cm') return value / 100;
+    if (unit === 'inch') return value * 0.0254;
+    return value;
+  }
+
   window.calculateTiles = function () {
     const roomLength = parseFloat(roomLengthInput.value);
     const roomWidth = parseFloat(roomWidthInput.value);
@@ -22,16 +29,28 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    const areaSize = roomLength * roomWidth;
-    const tileSize = tileLength * tileWidth;
-    let tileCount = areaSize / tileSize;
-    tileCount *= 1 + (buffer / 100);
-    tileCount = Math.ceil(tileCount);
+    const roomLengthM = convertToMeters(roomLength, unit);
+    const roomWidthM = convertToMeters(roomWidth, unit);
+    const tileLengthM = convertToMeters(tileLength, unit);
+    const tileWidthM = convertToMeters(tileWidth, unit);
+
+    const roomAreaSqm = roomLengthM * roomWidthM;
+    const tileAreaSqm = tileLengthM * tileWidthM;
+    let tileCount = roomAreaSqm / tileAreaSqm;
+    const originalTileCount = Math.ceil(tileCount);
+    const bufferTiles = Math.ceil(tileCount * (buffer / 100));
+    const totalTiles = originalTileCount + bufferTiles;
+
+    const roomAreaSqft = roomAreaSqm * 10.7639;
+    const tileAreaSqft = tileAreaSqm * 10.7639;
 
     resultDiv.innerHTML = `
-      <p><strong>Total Tiles Needed:</strong> ${tileCount}</p>
-      <p><strong>Room Area:</strong> ${areaSize.toFixed(2)} ${unit}²</p>
-      <p><strong>Tile Area:</strong> ${tileSize.toFixed(2)} ${unit}²</p>
+      <p><strong>🧮 Tiles Needed (Before Buffer):</strong> ${originalTileCount}</p>
+      <p><strong>➕ Buffer Tiles (${buffer}%):</strong> ${bufferTiles}</p>
+      <p><strong>📦 Total Tiles to Order:</strong> ${totalTiles}</p>
+      <hr class="my-2" />
+      <p><strong>📏 Room Area:</strong> ${roomAreaSqm.toFixed(2)} m² / ${roomAreaSqft.toFixed(2)} ft²</p>
+      <p><strong>🧱 Single Tile Area:</strong> ${tileAreaSqm.toFixed(4)} m² / ${tileAreaSqft.toFixed(2)} ft²</p>
     `;
 
     previewBtn.classList.remove('hidden');
