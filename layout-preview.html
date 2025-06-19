@@ -4,121 +4,17 @@
   <meta charset="UTF-8">
   <title>Tile Layout Preview</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <div class="container mx-auto py-6 px-4">
+  <main class="container mx-auto py-6 px-4">
     <h1 class="text-2xl font-bold mb-4">Tile Layout Preview</h1>
-    <canvas id="layoutCanvas" class="border w-full bg-white" height="600"></canvas>
-
-    <div class="mt-4 flex gap-4">
-      <button onclick="downloadAsImage()" class="bg-blue-600 text-white px-4 py-2 rounded">Download Image</button>
-      <button onclick="downloadAsPDF()" class="bg-red-600 text-white px-4 py-2 rounded">Export as PDF</button>
-      <button onclick="window.history.back()" class="bg-gray-600 text-white px-4 py-2 rounded">Back</button>
+    <div id="previewContainer" class="bg-white p-4 rounded shadow overflow-auto"></div>
+    <div class="mt-6 space-x-4">
+      <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded">🖨 Print</button>
+      <button onclick="downloadPDF()" class="bg-green-600 text-white px-4 py-2 rounded">📄 Download PDF</button>
     </div>
-  </div>
+  </main>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const canvas = document.getElementById('layoutCanvas');
-      const ctx = canvas.getContext('2d');
-
-      // Read data from localStorage
-      const roomLength = parseFloat(localStorage.getItem('roomLength') || "3000");
-      const roomWidth = parseFloat(localStorage.getItem('roomWidth') || "3000");
-      const tileLength = parseFloat(localStorage.getItem('tileLength') || "300");
-      const tileWidth = parseFloat(localStorage.getItem('tileWidth') || "300");
-      const unit = localStorage.getItem('unit') || "mm";
-
-      // Scaling factor to fit canvas
-      const canvasWidth = canvas.width - 20;
-      const canvasHeight = canvas.height - 20;
-      const scaleX = canvasWidth / roomLength;
-      const scaleY = canvasHeight / roomWidth;
-      const scale = Math.min(scaleX, scaleY);
-
-      const cols = Math.ceil(roomLength / tileLength);
-      const rows = Math.ceil(roomWidth / tileWidth);
-
-      let overflow = false;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#f3f4f6";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Draw tiles
-      ctx.font = "10px Arial";
-      let count = 1;
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-          const tx = 10 + x * tileLength * scale;
-          const ty = 10 + y * tileWidth * scale;
-          const w = tileLength * scale;
-          const h = tileWidth * scale;
-
-          if (tx + w > canvas.width || ty + h > canvas.height) {
-            ctx.fillStyle = "#fecaca"; // red for overflow
-            overflow = true;
-          } else {
-            ctx.fillStyle = "#d1d5db"; // gray tile
-          }
-
-          ctx.fillRect(tx, ty, w, h);
-          ctx.strokeStyle = "#6b7280";
-          ctx.strokeRect(tx, ty, w, h);
-
-          ctx.fillStyle = "#1f2937";
-          ctx.fillText(count++, tx + 3, ty + 12);
-        }
-      }
-
-      // Scale indicator
-      ctx.fillStyle = "#000";
-      ctx.font = "10px Arial";
-      ctx.fillText("Scale: 1 pixel ≈ " + (1/scale).toFixed(1) + " " + unit, 10, canvas.height - 10);
-      ctx.fillText("Room: " + roomLength + " x " + roomWidth + " " + unit, 180, canvas.height - 10);
-      ctx.fillText("www.tilecalhub.com", canvas.width - 140, canvas.height - 10);
-    });
-
-    function downloadAsImage() {
-      const canvas = document.getElementById('layoutCanvas');
-      const link = document.createElement('a');
-      link.download = 'tile-layout-preview.png';
-      link.href = canvas.toDataURL();
-      link.click();
-    }
-
-    async function downloadAsPDF() {
-      const { jsPDF } = window.jspdf;
-      const canvas = document.getElementById('layoutCanvas');
-      const imgData = canvas.toDataURL("image/png");
-
-      const pdf = new jsPDF({
-        orientation: "landscape",
-        unit: "mm",
-        format: "a4"
-      });
-
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 10;
-      const imgWidth = pageWidth - margin * 2;
-      const imgHeight = canvas.height * (imgWidth / canvas.width);
-
-      // Branding
-      pdf.setFontSize(12);
-      pdf.text("TileCalHub.com — Auto Layout Preview", margin, 10);
-      pdf.text("Generated: " + new Date().toLocaleString(), margin, 18);
-
-      // Draw Image
-      pdf.addImage(imgData, "PNG", margin, 25, imgWidth, imgHeight);
-
-      // Disclaimer
-      pdf.setFontSize(9);
-      pdf.setTextColor(100);
-      pdf.text("This layout preview is auto-generated for visual reference only.", margin, pageHeight - 10);
-
-      pdf.save("tile-layout-preview.pdf");
-    }
-  </script>
+  <script src="js/previewCanvas_v1.js"></script>
 </body>
 </html>
