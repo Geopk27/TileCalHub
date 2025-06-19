@@ -17,7 +17,9 @@
     </div>
   </nav>
 
-  <main class="container mx-auto py-6 px-4 space-y-6">
+  <main class="container mx-auto py-6 px-4 space-y-6 flex">
+    <div class="hidden lg:block w-24"><img src="images/ad-sidebar.jpg" alt="Left Ad" class="w-full h-auto"></div>
+    <div class="flex-1 space-y-6">
     <section id="calculator" class="bg-white p-6 rounded shadow space-y-4">
       <h1 class="text-2xl font-bold">Tile Calculator</h1>
 
@@ -66,7 +68,13 @@
 
       <button id="previewBtn" onclick="goToPreview()" class="bg-green-600 text-white px-4 py-2 rounded hidden">Preview Layout Plan</button>
 
-      <div id="previewContainer" class="mt-4"></div>
+      
+    <!-- Ad on top of preview -->
+    <div class="my-4 text-center"><img src="images/ad-banner.jpg" alt="Top Ad Banner" class="mx-auto w-3/4"></div>
+    <div id="previewContainer" class="mt-4"></div>
+    <!-- Ad at bottom of preview -->
+    <div class="my-4 text-center"><img src="images/ad-banner.jpg" alt="Bottom Ad Banner" class="mx-auto w-3/4"></div>
+    
     </section>
 
     <!-- Visual Guide Section -->
@@ -77,7 +85,9 @@
       <img src="images/Rectangle Tiles Laying Pattern.jpg" alt="Rectangle Patterns">
       <img src="images/Plank Tiles Laying Pattern.jpg" alt="Plank Patterns">
     </section>
-  </main>
+      </div>
+    <div class="hidden lg:block w-24"><img src="images/ad-sidebar.jpg" alt="Right Ad" class="w-full h-auto"></div>
+</main>
 
   <footer class="bg-white border-t p-4 text-center text-sm space-y-2">
     <div class="space-x-3">
