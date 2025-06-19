@@ -1,5 +1,4 @@
 
-// Ensure calculateTiles is defined globally
 window.calculateTiles = function() {
   const shape = document.getElementById("tileShape").value;
   const unit = document.getElementById("unitSelect").value;
