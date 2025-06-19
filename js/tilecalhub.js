@@ -9,12 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const resultDiv = document.getElementById('result');
   const previewBtn = document.getElementById('previewBtn');
 
-  function calculateTiles() {
+  window.calculateTiles = function () {
     const roomLength = parseFloat(roomLengthInput.value);
     const roomWidth = parseFloat(roomWidthInput.value);
     const tileLength = parseFloat(tileLengthInput.value);
     const tileWidth = parseFloat(tileWidthInput.value);
     const buffer = parseFloat(bufferInput.value);
+    const unit = unitSelect.value;
 
     if (isNaN(roomLength) || isNaN(roomWidth) || isNaN(tileLength) || isNaN(tileWidth)) {
       resultDiv.innerHTML = "<p class='text-red-500'>Please enter all dimensions correctly.</p>";
@@ -23,23 +24,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const areaSize = roomLength * roomWidth;
     const tileSize = tileLength * tileWidth;
-
     let tileCount = areaSize / tileSize;
     tileCount *= 1 + (buffer / 100);
     tileCount = Math.ceil(tileCount);
 
-    resultDiv.innerHTML = \`
-      <p><strong>Total Tiles Needed:</strong> \${tileCount}</p>
-      <p><strong>Room Area:</strong> \${areaSize.toFixed(2)}</p>
-      <p><strong>Tile Area:</strong> \${tileSize.toFixed(2)}</p>
-    \`;
+    resultDiv.innerHTML = `
+      <p><strong>Total Tiles Needed:</strong> ${tileCount}</p>
+      <p><strong>Room Area:</strong> ${areaSize.toFixed(2)} ${unit}²</p>
+      <p><strong>Tile Area:</strong> ${tileSize.toFixed(2)} ${unit}²</p>
+    `;
 
     previewBtn.classList.remove('hidden');
-  }
 
-  window.calculateTiles = calculateTiles;
+    // store for preview
+    localStorage.setItem('roomLength', roomLength);
+    localStorage.setItem('roomWidth', roomWidth);
+    localStorage.setItem('tileLength', tileLength);
+    localStorage.setItem('tileWidth', tileWidth);
+    localStorage.setItem('unit', unit);
+  };
 
-  previewBtn.addEventListener('click', function () {
+  window.goToPreview = function () {
     window.location.href = 'layout-preview.html';
-  });
+  };
 });
