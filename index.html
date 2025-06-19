@@ -22,7 +22,7 @@
     <section id="calculator" class="bg-white p-6 rounded shadow space-y-4">
       <h1 class="text-2xl font-bold">Tile Calculator</h1>
 
-      <!-- 1. Tile Shape -->
+      <!-- Tile Shape -->
       <div>
         <label class="block text-sm font-medium">Tile Shape:</label>
         <select id="tileShape" class="w-full border p-2 rounded">
@@ -32,7 +32,7 @@
         </select>
       </div>
 
-      <!-- 2. Unit -->
+      <!-- Unit -->
       <div>
         <label class="block text-sm font-medium">Select Unit:</label>
         <select id="unitSelect" class="w-full border p-2 rounded">
@@ -42,14 +42,14 @@
         </select>
       </div>
 
-      <!-- 3–5. Inputs -->
+      <!-- Inputs -->
       <div class="grid grid-cols-2 gap-4">
         <div><label>Area Length</label><input type="number" id="roomLength" class="w-full p-2 border rounded"></div>
         <div><label>Area Width</label><input type="number" id="roomWidth" class="w-full p-2 border rounded"></div>
         <div><label>Tile Length</label><input type="number" id="tileLength" class="w-full p-2 border rounded"></div>
         <div><label>Tile Width</label><input type="number" id="tileWidth" class="w-full p-2 border rounded"></div>
 
-        <!-- 🆕 Pattern Dropdown -->
+        <!-- Pattern Dropdown -->
         <div>
           <label class="block text-sm font-medium">Tile Laying Pattern:</label>
           <select id="patternSelect" class="w-full border p-2 rounded">
@@ -60,14 +60,25 @@
       </div>
 
       <button onclick="calculateTiles()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Calculate</button>
-
       <div id="result" class="pt-4 space-y-2 text-lg"></div>
 
-      <p class="text-sm text-gray-500 italic">
-        Disclaimer: TileCalHub shall not be held responsible for any deviations or issues on costings and calculations that arise from usage of these tools. They should be used as working reference & guidelines and may not include all external factors affecting final results in your project.
-      </p>
-
       <button id="previewBtn" onclick="goToPreview()" class="bg-green-600 text-white px-4 py-2 rounded hidden">Preview Layout Plan</button>
+
+      <p class="text-sm text-gray-500 italic">
+        Disclaimer: TileCalHub shall not be held responsible for any deviations or issues on costings and calculations that arise from usage of these tools.
+      </p>
+    </section>
+
+    <!-- 👇 Tile Pattern Image Gallery -->
+    <section class="bg-white p-6 rounded shadow space-y-4">
+      <h2 class="text-xl font-semibold">Square Tile Patterns</h2>
+      <img src="images/Square Tiles Laying Pattern.jpg" alt="Square Patterns" class="w-full rounded">
+
+      <h2 class="text-xl font-semibold mt-8">Rectangle Tile Patterns</h2>
+      <img src="images/Rectangle Tiles Laying Pattern.jpg" alt="Rectangle Patterns" class="w-full rounded">
+
+      <h2 class="text-xl font-semibold mt-8">Plank Tile Patterns</h2>
+      <img src="images/Plank Tiles Laying Pattern.jpg" alt="Plank Patterns" class="w-full rounded">
     </section>
   </main>
 
@@ -83,7 +94,6 @@
     <p>© 2025 TileCalHub. All rights reserved.</p>
   </footer>
 
-  <!-- 🔗 JS 绑定 -->
   <script src="js/tilecalhub.js"></script>
 </body>
 </html>
