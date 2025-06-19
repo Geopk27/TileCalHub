@@ -4,17 +4,23 @@
   <meta charset="UTF-8">
   <title>Tile Layout Preview</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
-<body class="bg-gray-100 text-gray-800">
-  <main class="container mx-auto py-6 px-4">
-    <h1 class="text-2xl font-bold mb-4">Tile Layout Preview</h1>
-    <div id="previewContainer" class="bg-white p-4 rounded shadow overflow-auto"></div>
-    <div class="mt-6 space-x-4">
-      <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded">🖨 Print</button>
-      <button onclick="downloadPDF()" class="bg-green-600 text-white px-4 py-2 rounded">📄 Download PDF</button>
+<body class="bg-gray-100">
+  <main class="container mx-auto p-4">
+    <div class="bg-white p-4 rounded shadow">
+      <h1 class="text-2xl font-bold mb-4">Tile Layout Preview</h1>
+      <div id="previewContainer" class="border border-gray-200"></div>
+      <div class="mt-6 flex gap-4">
+        <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded">
+          🖨 Print
+        </button>
+        <button onclick="downloadPDF()" class="bg-green-600 text-white px-4 py-2 rounded">
+          📄 Download PDF
+        </button>
+      </div>
     </div>
   </main>
-
   <script src="js/previewCanvas_v1.js"></script>
 </body>
 </html>
