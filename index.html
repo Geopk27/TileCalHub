@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,17 +13,16 @@
       <div class="space-x-4">
         <a href="index.html" class="hover:underline">Home</a>
         <a href="#calculator" class="hover:underline">Tile Calculator</a>
-        <a href="#tile-patterns" class="hover:underline">Tile Patterns</a>
+        <a href="tile-tips/index.html" class="hover:underline">Tile Tips & Ideas</a>
       </div>
     </div>
   </nav>
 
-  <main class="container mx-auto py-6 px-4 space-y-6 flex">
-    <div class="hidden lg:block w-24"><img src="images/ad-sidebar.jpg" alt="Left Ad" class="w-full h-auto"></div>
-    <div class="flex-1 space-y-6">
+  <main class="container mx-auto py-6 px-4 space-y-6">
     <section id="calculator" class="bg-white p-6 rounded shadow space-y-4">
       <h1 class="text-2xl font-bold">Tile Calculator</h1>
 
+      <!-- Tile Shape -->
       <div>
         <label class="block text-sm font-medium">Tile Shape:</label>
         <select id="tileShape" class="w-full border p-2 rounded">
@@ -32,6 +32,7 @@
         </select>
       </div>
 
+      <!-- Unit -->
       <div>
         <label class="block text-sm font-medium">Select Unit:</label>
         <select id="unitSelect" class="w-full border p-2 rounded">
@@ -41,67 +42,39 @@
         </select>
       </div>
 
+      <!-- Area & Tile Size Inputs -->
       <div class="grid grid-cols-2 gap-4">
-        <div><label>Area Length <span class="unit-label">(mm)</span></label><input type="number" id="roomLength" class="w-full p-2 border rounded"></div>
-        <div><label>Area Width <span class="unit-label">(mm)</span></label><input type="number" id="roomWidth" class="w-full p-2 border rounded"></div>
-        <div><label>Tile Length <span class="unit-label">(mm)</span></label><input type="number" id="tileLength" class="w-full p-2 border rounded"></div>
-        <div><label>Tile Width <span class="unit-label">(mm)</span></label><input type="number" id="tileWidth" class="w-full p-2 border rounded"></div>
+        <div><label>Area Length (<span class="unit-label">mm</span>)</label><input type="number" id="roomLength" class="w-full p-2 border rounded"></div>
+        <div><label>Area Width (<span class="unit-label">mm</span>)</label><input type="number" id="roomWidth" class="w-full p-2 border rounded"></div>
+        <div><label>Tile Length (<span class="unit-label">mm</span>)</label><input type="number" id="tileLength" class="w-full p-2 border rounded"></div>
+        <div><label>Tile Width (<span class="unit-label">mm</span>)</label><input type="number" id="tileWidth" class="w-full p-2 border rounded"></div>
+      </div>
 
-        <!-- Laying pattern dropdown -->
-        <div>
-          <label for="patternSelect">Tile Laying Pattern</label>
-          <select id="patternSelect" class="w-full border p-2 rounded">
-            <!-- options inserted by JS -->
-          </select>
-        </div>
+      <!-- Tile Pattern Selection -->
+      <div>
+        <label class="block text-sm font-medium">Tile Laying Pattern:</label>
+        <select id="patternSelect" class="w-full border p-2 rounded"></select>
+      </div>
 
-        <div><label>Wastage Buffer (%)</label><input type="number" id="buffer" class="w-full p-2 border rounded" value="10"></div>
+      <!-- Wastage Buffer -->
+      <div>
+        <label>Wastage Buffer (%)</label>
+        <input type="number" id="buffer" class="w-full p-2 border rounded" value="10">
       </div>
 
       <button onclick="calculateTiles()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Calculate</button>
-
       <div id="result" class="pt-4 space-y-2 text-lg"></div>
 
       <p class="text-sm text-gray-500 italic">
-        Disclaimer: TileCalHub shall not be held responsible for any deviations or issues on costings and calculations that arise from usage of these tools. They should be used as working reference & guidelines and may not include all external factors affecting final results in your project.
+        Disclaimer: TileCalHub shall not be held responsible for any deviations or issues on costings and calculations that arise from usage of these tools.
       </p>
-
-      <button id="previewBtn" onclick="goToPreview()" class="bg-green-600 text-white px-4 py-2 rounded hidden">Preview Layout Plan</button>
-
-      
-    <!-- Ad on top of preview -->
-    <div class="my-4 text-center"><img src="images/ad-banner.jpg" alt="Top Ad Banner" class="mx-auto w-3/4"></div>
-    <div id="previewContainer" class="mt-4"></div>
-    <!-- Ad at bottom of preview -->
-    <div class="my-4 text-center"><img src="images/ad-banner.jpg" alt="Bottom Ad Banner" class="mx-auto w-3/4"></div>
-    
     </section>
-
-    <!-- Visual Guide Section -->
-    <section id="tile-patterns" class="bg-white p-6 rounded shadow space-y-4">
-      <h2 class="text-xl font-bold">Tile Laying Patterns</h2>
-      <p>Preview images shown below as references based on tile shape.</p>
-      <img src="images/Square Tiles Laying Pattern.jpg" alt="Square Patterns">
-      <img src="images/Rectangle Tiles Laying Pattern.jpg" alt="Rectangle Patterns">
-      <img src="images/Plank Tiles Laying Pattern.jpg" alt="Plank Patterns">
-    </section>
-      </div>
-    <div class="hidden lg:block w-24"><img src="images/ad-sidebar.jpg" alt="Right Ad" class="w-full h-auto"></div>
-</main>
+  </main>
 
   <footer class="bg-white border-t p-4 text-center text-sm space-y-2">
-    <div class="space-x-3">
-      <span>📧 hello@tilecalhub.com</span>
-      <span>📷 IG</span>
-      <span>📘 FB</span>
-      <span>🎵 TikTok</span>
-      <span>🍋 Lemon8</span>
-      <span>🧧 Xiaohongshu</span>
-    </div>
     <p>© 2025 TileCalHub. All rights reserved.</p>
   </footer>
 
   <script src="js/tilecalhub.js"></script>
-  <script src="js/previewCanvas_v1.js"></script>
 </body>
 </html>
