@@ -5,55 +5,79 @@
   <meta charset="UTF-8" />
   <title>TileCalHub</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .pattern-thumb { border: 2px solid transparent; cursor: pointer; }
+    .pattern-thumb.selected { border-color: #2563eb; box-shadow: 0 0 0 2px #2563eb; }
+    .ad-banner { width: 160px; min-height: 600px; background: #eee; display: flex; justify-content: center; align-items: center; font-size: 12px; color: #888; }
+  </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <nav class="bg-white shadow p-4">
+  <nav class="bg-white shadow p-4 mb-2">
     <div class="container mx-auto flex justify-between items-center">
       <div class="text-xl font-bold">TileCalHub</div>
-      <div class="space-x-4">
+      <div class="space-x-4 text-sm">
         <a href="index.html" class="hover:underline">Home</a>
-        <a href="#calculator" class="hover:underline">Tile Calculator</a>
-        <a href="tile-tips/index.html" class="hover:underline">Tile Tips & Ideas</a>
+        <a href="#calculator" class="hover:underline">Calculator</a>
+        <a href="tile-tips/index.html" class="hover:underline">Tile Tips</a>
       </div>
     </div>
   </nav>
 
-  <main class="container mx-auto py-6 px-4 space-y-6">
-    <section id="calculator" class="bg-white p-6 rounded shadow space-y-4">
-      <h1 class="text-2xl font-bold">Tile Calculator</h1>
-      <div>
-        <label class="block text-sm font-medium">Tile Shape:</label>
-        <select id="tileShape" class="w-full border p-2 rounded">
-          <option value="square">Square</option>
-          <option value="rectangle">Rectangle</option>
-          <option value="plank">Plank</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Select Unit:</label>
-        <select id="unitSelect" class="w-full border p-2 rounded">
-          <option value="mm">Millimeter (mm)</option>
-          <option value="cm">Centimeter (cm)</option>
-          <option value="inch">Inch (in)</option>
-        </select>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div><label>Area Length (mm)</label><input type="number" id="roomLength" class="w-full p-2 border rounded"></div>
-        <div><label>Area Width (mm)</label><input type="number" id="roomWidth" class="w-full p-2 border rounded"></div>
-        <div><label>Tile Length (mm)</label><input type="number" id="tileLength" class="w-full p-2 border rounded"></div>
-        <div><label>Tile Width (mm)</label><input type="number" id="tileWidth" class="w-full p-2 border rounded"></div>
-        <div><label>Wastage Buffer (%)</label><input type="number" id="buffer" class="w-full p-2 border rounded" value="10"></div>
-      </div>
-      <div id="patternGallery" class="grid grid-cols-3 gap-6"></div>
-      <button onclick="calculateTiles()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Calculate</button>
-      <div id="result" class="pt-4 space-y-2 text-lg"></div>
-      <p class="text-sm text-gray-500 italic">
-        Disclaimer: TileCalHub shall not be held responsible for any deviations or issues on costings and calculations that arise from usage of these tools. They should be used as working reference & guidelines and may not include all external factors affecting final results in your project.
-      </p>
-      <button id="previewBtn" onclick="goToPreview()" class="bg-green-600 text-white px-4 py-2 rounded hidden">Preview Layout Plan</button>
-    </section>
+  <main class="container mx-auto px-4 flex space-x-4">
+    <div class="ad-banner hidden lg:block">
+      <img src="images/ad-sidebar.jpg" alt="Ad Left" class="h-[600px]" />
+    </div>
+
+    <div class="flex-1 space-y-6">
+      <section id="calculator" class="bg-white p-6 rounded shadow space-y-4">
+        <h1 class="text-2xl font-bold">Tile Calculator</h1>
+        <div>
+          <label class="block text-sm font-medium">Tile Shape:</label>
+          <select id="tileShape" class="w-full border p-2 rounded">
+            <option value="square">Square</option>
+            <option value="rectangle">Rectangle</option>
+            <option value="plank">Plank</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Select Unit:</label>
+          <select id="unitSelect" class="w-full border p-2 rounded">
+            <option value="mm">Millimeter (mm)</option>
+            <option value="cm">Centimeter (cm)</option>
+            <option value="inch">Inch (in)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Tile Laying Pattern:</label>
+          <select id="patternSelect" class="w-full border p-2 rounded"></select>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div><label>Area Length (<span class="unit-label">mm</span>)</label><input type="number" id="roomLength" class="w-full p-2 border rounded"></div>
+          <div><label>Area Width (<span class="unit-label">mm</span>)</label><input type="number" id="roomWidth" class="w-full p-2 border rounded"></div>
+          <div><label>Tile Length (<span class="unit-label">mm</span>)</label><input type="number" id="tileLength" class="w-full p-2 border rounded"></div>
+          <div><label>Tile Width (<span class="unit-label">mm</span>)</label><input type="number" id="tileWidth" class="w-full p-2 border rounded"></div>
+          <div><label>Wastage Buffer (%)</label><input type="number" id="buffer" class="w-full p-2 border rounded" value="10"></div>
+        </div>
+        <button onclick="calculateTiles()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Calculate</button>
+        <div id="result" class="pt-4 space-y-2 text-lg"></div>
+        <p class="text-sm text-gray-500 italic">
+          Disclaimer: TileCalHub shall not be held responsible for deviations from real-life conditions.
+        </p>
+        <button id="previewBtn" onclick="goToPreview()" class="bg-green-600 text-white px-4 py-2 rounded hidden">Preview Layout Plan</button>
+      </section>
+
+      <section id="patternGallery" class="bg-white p-4 rounded shadow space-y-4">
+        <h2 class="text-xl font-semibold">Laying Pattern Previews</h2>
+        <div id="patternThumbnails" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+      </section>
+    </div>
+
+    <div class="ad-banner hidden lg:block">
+      <img src="images/ad-sidebar.jpg" alt="Ad Right" class="h-[600px]" />
+    </div>
   </main>
-  <footer class="bg-white border-t p-4 text-center text-sm space-y-2">
+
+  <footer class="bg-white mt-6 border-t p-4 text-center text-sm space-y-2">
     <div class="space-x-3">
       <span>📧 hello@tilecalhub.com</span>
       <span>📷 IG</span>
@@ -64,6 +88,7 @@
     </div>
     <p>© 2025 TileCalHub. All rights reserved.</p>
   </footer>
+
   <script src="js/tilecalhub.js"></script>
 </body>
 </html>
