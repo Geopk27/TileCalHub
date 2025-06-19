@@ -2,62 +2,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>TileCalHub</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="js/previewCanvas_v1.js" defer></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <main class="container mx-auto py-6 px-4 space-y-6">
-    <section id="calculator" class="bg-white p-6 rounded shadow space-y-4">
-      <h1 class="text-2xl font-bold">Tile Calculator</h1>
-
-      <div>
-        <label class="block text-sm font-medium">Tile Shape:</label>
-        <select id="tileShape" class="w-full border p-2 rounded">
-          <option value="square">Square</option>
-          <option value="rectangle">Rectangle</option>
-          <option value="plank">Plank</option>
+  <main class="container mx-auto py-6 px-4">
+    <section class="bg-white p-6 rounded shadow">
+      <h1 class="text-2xl font-bold mb-4">Tile Calculator Preview</h1>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <input id="roomLength" type="number" placeholder="Room Length" class="p-2 border rounded">
+        <input id="roomWidth" type="number" placeholder="Room Width" class="p-2 border rounded">
+        <input id="tileLength" type="number" placeholder="Tile Length" class="p-2 border rounded">
+        <input id="tileWidth" type="number" placeholder="Tile Width" class="p-2 border rounded">
+        <select id="unitSelect" class="p-2 border rounded">
+          <option value="mm">mm</option>
+          <option value="cm">cm</option>
+          <option value="inch">inch</option>
         </select>
       </div>
-
-      <div>
-        <label class="block text-sm font-medium">Select Unit:</label>
-        <select id="unitSelect" class="w-full border p-2 rounded">
-          <option value="mm">Millimeter (mm)</option>
-          <option value="cm">Centimeter (cm)</option>
-          <option value="inch">Inch (in)</option>
-        </select>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div><label>Area Length</label><input type="number" id="roomLength" class="w-full p-2 border rounded"></div>
-        <div><label>Area Width</label><input type="number" id="roomWidth" class="w-full p-2 border rounded"></div>
-        <div><label>Tile Length</label><input type="number" id="tileLength" class="w-full p-2 border rounded"></div>
-        <div><label>Tile Width</label><input type="number" id="tileWidth" class="w-full p-2 border rounded"></div>
-
-        <div>
-          <label>Tile Pattern</label>
-          <select id="patternSelect" class="w-full border p-2 rounded">
-            <option value="">Select pattern</option>
-          </select>
-        </div>
-
-        <div><label>Wastage Buffer (%)</label><input type="number" id="buffer" class="w-full p-2 border rounded" value="10"></div>
-      </div>
-
-      <button onclick="calculateTiles()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Calculate</button>
-
-      <div id="result" class="pt-4 space-y-2 text-lg"></div>
-
-      <p class="text-sm text-gray-500 italic">
-        Disclaimer: TileCalHub shall not be held responsible for any deviations or issues on costings and calculations that arise from usage of these tools.
-      </p>
-
-      <button id="previewBtn" onclick="goToPreview()" class="bg-green-600 text-white px-4 py-2 rounded">Preview Layout Plan</button>
-
+      <button onclick="goToPreview()" class="bg-blue-600 text-white px-4 py-2 rounded">Preview Layout Plan</button>
       <div id="previewContainer" class="mt-6 border p-4 bg-white"></div>
     </section>
   </main>
+  <script src="js/previewCanvas_v1.js"></script>
 </body>
 </html>

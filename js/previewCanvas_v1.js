@@ -11,13 +11,7 @@ function goToPreview() {
     return;
   }
 
-  const toMM = (value, unit) => {
-    if (unit === "mm") return value;
-    if (unit === "cm") return value * 10;
-    if (unit === "inch") return value * 25.4;
-    return value;
-  };
-
+  const toMM = (v, u) => u === 'mm' ? v : u === 'cm' ? v * 10 : u === 'inch' ? v * 25.4 : v;
   const roomLengthMM = toMM(length, unit);
   const roomWidthMM = toMM(width, unit);
   const tileLengthMM = toMM(tileLength, unit);
@@ -31,15 +25,16 @@ function goToPreview() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   const margin = 40;
-  const drawableWidth = canvas.width - 2 * margin;
-  const drawableHeight = canvas.height - 2 * margin;
+  const drawableWidth = canvas.width - margin * 2;
+  const drawableHeight = canvas.height - margin * 2;
+  const scaleX = drawableWidth / roomWidthMM;
+  const scaleY = drawableHeight / roomLengthMM;
+  const scale = Math.min(scaleX, scaleY);
 
-  let scaleX = drawableWidth / roomWidthMM;
-  let scaleY = drawableHeight / roomLengthMM;
-  let scale = Math.min(scaleX, scaleY);
-
-  const startX = (canvas.width - roomWidthMM * scale) / 2;
-  const startY = (canvas.height - roomLengthMM * scale) / 2;
+  const drawWidth = roomWidthMM * scale;
+  const drawHeight = roomLengthMM * scale;
+  const startX = (canvas.width - drawWidth) / 2;
+  const startY = (canvas.height - drawHeight) / 2;
 
   let count = 1;
   const rows = Math.ceil(roomLengthMM / tileLengthMM);
@@ -51,33 +46,29 @@ function goToPreview() {
       const y = startY + r * tileLengthMM * scale;
       const w = tileWidthMM * scale;
       const h = tileLengthMM * scale;
-
-      const overflowX = (c + 1) * tileWidthMM > roomWidthMM;
-      const overflowY = (r + 1) * tileLengthMM > roomLengthMM;
-
-      ctx.strokeStyle = (overflowX || overflowY) ? 'red' : 'black';
+      const overflow = ((c + 1) * tileWidthMM > roomWidthMM) || ((r + 1) * tileLengthMM > roomLengthMM);
+      ctx.strokeStyle = overflow ? 'red' : 'black';
       ctx.strokeRect(x, y, w, h);
-
       ctx.fillStyle = "#000";
-      ctx.font = `${Math.max(8, scale * 0.8)}px Arial`;
-      ctx.fillText(count, x + w / 2 - 5, y + h / 2 + 4);
+      ctx.font = `${Math.max(8, scale * 0.7)}px Arial`;
+      ctx.textAlign = 'center';
+      ctx.fillText(count, x + w / 2, y + h / 2 + 4);
       count++;
     }
   }
 
-  // Draw dimension labels
   ctx.fillStyle = "black";
   ctx.font = "12px Arial";
-  ctx.fillText("Length: " + (roomLengthMM / 1000).toFixed(2) + " m", startX - 35, canvas.height / 2);
-  ctx.fillText("Width: " + (roomWidthMM / 1000).toFixed(2) + " m", canvas.width / 2, startY - 10);
-
-  // Draw scale
-  ctx.fillText("Scale 1:" + Math.round(1 / scale), 50, canvas.height - 20);
-
-  // Draw watermark
+  ctx.textAlign = 'right';
+  ctx.fillText(`Length (${unit}): ${length}`, startX - 10, canvas.height / 2);
+  ctx.textAlign = 'center';
+  ctx.fillText(`Width (${unit}): ${width}`, canvas.width / 2, startY - 10);
+  ctx.textAlign = 'left';
+  ctx.fillText("Scale 1:" + Math.round(1 / scale), 40, canvas.height - 25);
   ctx.font = "10px Arial";
-  ctx.fillStyle = "#ccc";
-  ctx.fillText("www.tilecalhub.com", canvas.width - 120, canvas.height - 10);
+  ctx.fillStyle = "#bbb";
+  ctx.textAlign = 'right';
+  ctx.fillText("www.tilecalhub.com", canvas.width - 10, canvas.height - 10);
 
   const previewContainer = document.getElementById('previewContainer');
   previewContainer.innerHTML = '';
