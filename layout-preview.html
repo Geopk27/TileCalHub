@@ -21,6 +21,27 @@
       </div>
     </div>
   </main>
+
+  <script>
+    // 追加标题上显示当前铺贴模式（来自URL参数）
+    window.addEventListener("DOMContentLoaded", function () {
+      const params = new URLSearchParams(window.location.search);
+      const pattern = params.get('pattern') || 'grid';
+      const patternName = {
+        'grid': '网格',
+        'herringbone': '人字形',
+        'chevron': '人字斜接',
+        'offset': '错缝',
+        'basket-weave': '篮编',
+        'block-herringbone': '块状人字',
+        'stepladder': '阶梯',
+        'diamond': '斜铺',
+        'chequerboard': '棋盘格'
+      };
+      document.querySelector('h1').textContent += ` - ${patternName[pattern] || pattern}`;
+    });
+  </script>
+
   <script src="js/previewCanvas_v1.js"></script>
 </body>
 </html>

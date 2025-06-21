@@ -1,10 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>TileCalHub</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media (max-width: 640px) {
+      .grid-cols-2 { grid-template-columns: 1fr !important; }
+      input, select {
+        padding: 12px !important;
+        font-size: 16px !important;
+      }
+      #previewBtn { width: 100%; }
+    }
+  </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
   <nav class="bg-white shadow p-4">
@@ -44,16 +53,15 @@
 
       <!-- Inputs -->
       <div class="grid grid-cols-2 gap-4">
-        <div><label>Area Length</label><input type="number" id="roomLength" class="w-full p-2 border rounded"></div>
-        <div><label>Area Width</label><input type="number" id="roomWidth" class="w-full p-2 border rounded"></div>
-        <div><label>Tile Length</label><input type="number" id="tileLength" class="w-full p-2 border rounded"></div>
-        <div><label>Tile Width</label><input type="number" id="tileWidth" class="w-full p-2 border rounded"></div>
+        <div><label>Area Length (<span class="unit-label">mm</span>)</label><input type="number" id="roomLength" class="w-full p-2 border rounded"></div>
+        <div><label>Area Width (<span class="unit-label">mm</span>)</label><input type="number" id="roomWidth" class="w-full p-2 border rounded"></div>
+        <div><label>Tile Length (<span class="unit-label">mm</span>)</label><input type="number" id="tileLength" class="w-full p-2 border rounded"></div>
+        <div><label>Tile Width (<span class="unit-label">mm</span>)</label><input type="number" id="tileWidth" class="w-full p-2 border rounded"></div>
 
         <!-- Pattern Dropdown -->
         <div>
           <label class="block text-sm font-medium">Tile Laying Pattern:</label>
-          <select id="patternSelect" class="w-full border p-2 rounded">
-          </select>
+          <select id="patternSelect" class="w-full border p-2 rounded"></select>
         </div>
 
         <div><label>Wastage Buffer (%)</label><input type="number" id="buffer" class="w-full p-2 border rounded" value="10"></div>
@@ -95,7 +103,5 @@
   </footer>
 
   <script src="js/tilecalhub.js"></script>
-</body>
-</html>
 </body>
 </html>

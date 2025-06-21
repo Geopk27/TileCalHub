@@ -1,9 +1,10 @@
-
+// 1. Unit label auto update
 document.getElementById('unitSelect').addEventListener('change', function () {
   const unit = this.value;
   document.querySelectorAll('.unit-label').forEach(el => el.textContent = unit);
 });
 
+// 2. Dynamic patterns per tile shape
 const patternsByShape = {
   square: ['Grid', 'Diamond', 'Chequerboard', 'Staggered Bond'],
   rectangle: ['Offset', 'One-Third Offset', 'Stepladder', 'Stacked Horizontal', 'Stacked Vertical', 'Herringbone', 'Block Herringbone', 'Basket Weave'],
@@ -25,8 +26,10 @@ document.getElementById('tileShape').addEventListener('change', function () {
   }
 });
 
+// Trigger default load once on page load
 document.getElementById('tileShape').dispatchEvent(new Event('change'));
 
+// 3. Tile calculation logic
 function calculateTiles() {
   const length = parseFloat(document.getElementById('roomLength').value);
   const width = parseFloat(document.getElementById('roomWidth').value);
@@ -70,28 +73,27 @@ function calculateTiles() {
   document.getElementById('previewBtn').classList.remove('hidden');
 }
 
+// 4. Go to layout preview
 function goToPreview() {
-  // 1. Get all input values
   const length = document.getElementById('roomLength').value;
   const width = document.getElementById('roomWidth').value;
   const tileLength = document.getElementById('tileLength').value;
   const tileWidth = document.getElementById('tileWidth').value;
   const unit = document.getElementById('unitSelect').value;
+  const pattern = document.getElementById('patternSelect').value;
 
-  // 2. Check if all required fields are filled
   if (!length || !width || !tileLength || !tileWidth) {
     alert("Please fill in all required fields");
     return;
   }
 
-  // 3. Prepare parameters to pass
   const params = new URLSearchParams();
   params.append('length', length);
   params.append('width', width);
   params.append('tileLength', tileLength);
   params.append('tileWidth', tileWidth);
   params.append('unit', unit);
+  params.append('pattern', pattern);
 
-  // 4. Redirect to preview page with parameters
   window.location.href = 'layout-preview.html?' + params.toString();
 }
